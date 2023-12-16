@@ -31,7 +31,9 @@ You can also customize the variable =org-bookmark-jump-indirect= to make Org boo
 
 ** 1.4-pre
 
-Nothing new yet.
+*Changes*
+
++ Abbreviate filenames with ~abbreviate-file-name~.  ([[https://github.com/alphapapa/org-bookmark-heading/pull/9][#9]].  Thanks to [[https://github.com/akirak][Akira Komamura]].)
 
 ** 1.3.1
 

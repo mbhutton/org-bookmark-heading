@@ -120,7 +120,7 @@ Called with point on heading.  Can be used to, e.g. cycle visibility."
 (defun org-bookmark-heading-make-record ()
   "Return bookmark record for current heading.
 Sets ID property for heading if necessary."
-  (let* ((filename (buffer-file-name (org-base-buffer (current-buffer))))
+  (let* ((filename (abbreviate-file-name (buffer-file-name (org-base-buffer (current-buffer)))))
          (display-filename (funcall org-bookmark-heading-filename-fn filename))
          (heading (unless (org-before-first-heading-p)
                     (org-link-display-format (org-get-heading t t))))
