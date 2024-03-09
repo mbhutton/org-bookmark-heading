@@ -117,6 +117,9 @@ Called with point on heading.  Can be used to, e.g. cycle visibility."
 
 (setq-mode-local org-mode bookmark-make-record-function 'org-bookmark-heading-make-record)
 
+(setq org-bookmark-heading--refile-in-progress nil)
+(setq org-bookmark-heading--store-in-progress nil)
+
 ;;;; Functions
 
 ;;;###autoload
@@ -133,10 +136,8 @@ Sets ID property for heading if necessary."
                          (org-get-outline-path 'with-self)))
          (indirectp (when (buffer-base-buffer) t))
          id handler)
-    (unless (and (boundp 'bookmark-name)
-                 (or (string= bookmark-name (plist-get org-bookmark-names-plist :last-capture-marker))
-                     (string= bookmark-name (plist-get org-bookmark-names-plist :last-capture))
-                     (string= bookmark-name (plist-get org-bookmark-names-plist :last-refile))))
+
+    (unless (or org-bookmark-heading--refile-in-progress org-bookmark-heading--store-in-progress)
       ;; When `org-capture-mode' is active, and/or when a heading is
       ;; being refiled, do not create an org-id for the current
       ;; heading, and do not set the bookmark handler.  This is
@@ -145,10 +146,7 @@ Sets ID property for heading if necessary."
       ;; bookmark when a heading is refiled, and we don't want every
       ;; heading captured or refiled to get an org-id set by this
       ;; function, because not everyone wants to have property drawers
-      ;; "polluting" every heading in their org files. `bookmark-name'
-      ;; is set in `org-capture-bookmark-last-stored-position' and in
-      ;; `org-refile', and it seems to be the way to detect whether
-      ;; this is being called from a capture or a refile.
+      ;; "polluting" every heading in their org files.
       (setf id (org-id-get (point) (pcase-exhaustive org-bookmark-heading-make-ids
                                      (`t t)
                                      (`nil nil)
@@ -299,6 +297,22 @@ better way to do this, but Helm can be confusing, and this works."
   (add-to-list 'helm-type-bookmark-actions
                '("Jump to org-mode bookmark in indirect buffer" . helm-org-bookmark-jump-indirect-action)
                t))
+
+;;;; Help detect the 'org-refile' and 'org-capture-store-last-position' cases by toggling flags
+
+(defun org-bookmark-heading--around-refile (orig-fun &rest args)
+  (setq org-bookmark-heading--refile-in-progress t)
+  (unwind-protect
+    (apply orig-fun args)
+    (setq org-bookmark-heading--refile-in-progress nil)))
+(advice-add 'org-refile :around 'org-bookmark-heading--around-refile)
+
+(defun org-bookmark-heading--around-store (orig-fun &rest args)
+  (setq org-bookmark-heading--store-in-progress t)
+  (unwind-protect
+    (apply orig-fun args)
+    (setq org-bookmark-heading--store-in-progress nil)))
+(advice-add 'org-capture-store-last-position :around 'org-bookmark-heading--around-store)
 
 ;;;; Footer
 
