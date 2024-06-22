@@ -29,7 +29,7 @@ You can also customize the variable =org-bookmark-jump-indirect= to make Org boo
 
 * Changelog
 
-** 1.3.2-pre
+** 1.3.2
 
 *Compatibility*
 + Require Emacs 25.1 or later (this appears to have been necessary for a while, so making it official is belated but correct).
