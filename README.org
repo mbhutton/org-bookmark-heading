@@ -31,6 +31,10 @@ You can also customize the variable =org-bookmark-jump-indirect= to make Org boo
 
 ** 1.3.2-pre
 
+*Compatibility*
++ Require Emacs 25.1 or later (this appears to have been necessary for a while, so making it official is belated but correct).
++ Depend on ~compat~ package.
+
 *Fixes*
 + Call ~org-bookmark-heading-after-jump-hook~ every time (instead of only when using indirect buffers).  ([[https://github.com/alphapapa/org-bookmark-heading/issues/30][#30]].  Thanks to [[https://github.com/schwurg][Tim Wichmann]].)
 

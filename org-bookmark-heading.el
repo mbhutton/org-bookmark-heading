@@ -3,7 +3,7 @@
 ;; Author: Adam Porter <adam@alphapapa.net>
 ;; Version: 1.3.2-pre
 ;; Url: http://github.com/alphapapa/org-bookmark-heading
-;; Package-Requires: ((emacs "24.4"))
+;; Package-Requires: ((emacs "25.1") (compat "29.1.4.5"))
 ;; Keywords: hypermedia, outlines
 
 ;;; Commentary:
@@ -62,6 +62,8 @@
 (require 'mode-local)
 (require 'org)
 (require 'bookmark)
+
+(require 'compat)
 
 (eval-when-compile
   ;; Support map pattern in pcase
