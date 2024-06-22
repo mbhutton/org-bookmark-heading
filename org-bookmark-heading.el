@@ -229,8 +229,8 @@ supported, in which case it should be an entry ID)."
             ;; non-indirect buffer at the bottom of the prev-buffers list
             ;; so it won't be selected when the indirect buffer is killed.
             (set-window-prev-buffers nil (append (cdr (window-prev-buffers))
-                                                 (list (car (window-prev-buffers))))))
-          (run-hooks 'org-bookmark-heading-after-jump-hook))
+                                                 (list (car (window-prev-buffers)))))))
+        (run-hooks 'org-bookmark-heading-after-jump-hook)
         (unless (equal (file-truename (or (buffer-file-name (buffer-base-buffer))
                                           (buffer-file-name)))
                        (file-truename filename))
