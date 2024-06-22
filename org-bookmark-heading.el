@@ -178,16 +178,16 @@ Returns in format \"parent-directory/filename\"."
 BOOKMARK record should have fields `map', `outline-path', and
 `id', (and, for compatibility, `front-context-string' is also
 supported, in which case it should be an entry ID)."
-  (cl-flet ((jump-to-id
-             (id) (when-let ((id id)
-                             (marker (org-id-find id 'markerp)))
-                    (org-goto-marker-or-bmk marker)
-                    (current-buffer)))
+  (cl-flet ((jump-to-id (id)
+              (when-let ((id id)
+                         (marker (org-id-find id 'markerp)))
+                (org-goto-marker-or-bmk marker)
+                (current-buffer)))
             (jump-to-olp (outline-path)
-                         (when-let ((olp outline-path)
-                                    (marker (org-find-olp outline-path 'this-buffer)))
-                           (org-goto-marker-or-bmk marker)
-                           (current-buffer))))
+              (when-let ((olp outline-path)
+                         (marker (org-find-olp outline-path 'this-buffer)))
+                (org-goto-marker-or-bmk marker)
+                (current-buffer))))
     (pcase-let* ((`(,_name . ,(map filename outline-path id front-context-string indirectp)) bookmark)
                  (id (or id
                          ;; For old bookmark records made before we
