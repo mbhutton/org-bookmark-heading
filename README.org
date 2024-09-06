@@ -34,6 +34,7 @@ You can also customize the variable =org-bookmark-jump-indirect= to make Org boo
 *Changes*
 
 + Abbreviate filenames with ~abbreviate-file-name~.  ([[https://github.com/alphapapa/org-bookmark-heading/pull/9][#9]].  Thanks to [[https://github.com/akirak][Akira Komamura]].)
++ When showing an Org subtree in an indirect buffer, reuse an existing indirect buffer that shows the same subtree, when possible (rather than duplicating indirect buffers if the same bookmark is opened multiple times in a session).
 
 ** 1.3.2
 
